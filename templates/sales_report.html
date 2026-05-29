@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom border-secondary">
+    <h1 class="h3 text-white fw-bold"><i class="bi bi-graph-up-arrow text-success me-2"></i>HU08 — Reporte Comercial de Ventas</h1>
+</div>
+
+<div class="card card-custom p-4 mb-4 shadow-sm" style="background-color: #1e2530; border: 1px solid #2d3748; border-radius: 12px;">
+    <form action="/sales/report" method="GET" class="row g-3 align-items-end">
+        <div class="col-md-9">
+            <label class="form-label">Filtrar por Fecha</label>
+            <input type="date" class="form-control form-dark" name="fecha_filtro" value="{{ fecha_actual }}">
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary w-100 fw-bold"><i class="bi bi-search"></i> Consultar</button>
+        </div>
+    </form>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card p-4 shadow-sm border-0" style="background-color: #1a202c; border-left: 5px solid #10b981 !important;">
+            <span class="text-muted small font-monospace d-block">RECAUDACIÓN TOTAL</span>
+            <h2 class="text-white fw-bold font-monospace mt-1">${{ "%.2f"|format(total_recaudado|float) }}</h2>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card p-4 shadow-sm border-0" style="background-color: #1a202c; border-left: 5px solid #3b82f6 !important;">
+            <span class="text-muted small font-monospace d-block">UNIDADES VENDIDAS</span>
+            <h2 class="text-white fw-bold font-monospace mt-1">{{ total_articulos }} uds.</h2>
+        </div>
+    </div>
+</div>
+
+<div class="card card-custom p-3 shadow-sm" style="background-color: #1e2530; border: 1px solid #2d3748; border-radius: 12px;">
+    <h5 class="text-white fw-bold mb-3"><i class="bi bi-journal-text text-success me-1"></i> Desglose de Operaciones</h5>
+    <div class="table-responsive">
+        <table class="table table-custom table-hover align-middle mb-0" style="color: #f7fafc;">
+            <thead class="table-dark">
+                <tr>
+                    <th>Producto</th>
+                    <th class="text-center">Cantidad Vendida</th>
+                    <th class="text-center">Descuento Aplicado</th>
+                    <th class="text-end">Monto Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if ventas %}
+                    {% for v in ventas %}
+                    <tr>
+                        <td class="text-white fw-bold">{{ v.producto_nombre }}</td>
+                        <td class="text-center">{{ v.cantidad }}</td>
+                        <td class="text-center text-warning">{{ v.descuento }}%</td>
+                        <td class="text-end text-success fw-bold font-monospace">${{ "%.2f"|format(v.total|float) }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted py-4">No se registran transacciones para la fecha seleccionada.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

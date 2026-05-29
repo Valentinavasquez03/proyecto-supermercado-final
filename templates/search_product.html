@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom border-secondary">
+    <h1 class="h3 text-white fw-bold"><i class="bi bi-search text-success me-2"></i>HU05 — Buscador Avanzado de Productos</h1>
+</div>
+
+<div class="card card-custom p-4 mb-4 shadow-sm">
+    <form action="/products/search" method="GET" class="row g-3">
+        <div class="col-md-4">
+            <label class="form-label">Buscar por Nombre</label>
+            <input type="text" class="form-control form-dark" name="nombre" value="{{ q_nombre }}" placeholder="Ej. Leche...">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Categoría</label>
+            <select class="form-select form-dark" name="categoria">
+                <option value="">Todas</option>
+                <option value="Lacteos" {% if q_categoria == 'Lacteos' %}selected{% endif %}>Lácteos</option>
+                <option value="Carnes" {% if q_categoria == 'Carnes' %}selected{% endif %}>Carnes</option>
+                <option value="Abarrotes" {% if q_categoria == 'Abarrotes' %}selected{% endif %}>Abarrotes</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Precio Máximo ($)</label>
+            <input type="number" step="0.01" class="form-control form-dark" name="precio_max" value="{{ q_precio_max }}" placeholder="Ej. 20.00">
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-success w-100 fw-bold"><i class="bi bi-funnel"></i> Filtrar</button>
+        </div>
+    </form>
+</div>
+
+<div class="card card-custom p-3 shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-custom table-hover align-middle mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th class="text-center">Stock</th>
+                    <th class="text-end">Precio</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if productos %}
+                    {% for producto in productos %}
+                    <tr>
+                        <td>
+                            <img src="{{ producto.imagen }}" alt="Foto" style="width: 45px; height: 45px; object-fit: cover;" class="rounded border border-secondary">
+                        </td>
+                        <td><span class="text-white fw-bold">{{ producto.nombre }}</span></td>
+                        <td><span class="badge bg-secondary">{{ producto.categoria }}</span></td>
+                        <td class="text-center">
+                            {% if producto.stock|int <= 5 %}
+                                <span class="badge bg-danger text-white">Bajo Stock ({{ producto.stock }})</span>
+                            {% else %}
+                                <span class="badge bg-dark border border-secondary">{{ producto.stock }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end text-success fw-bold font-monospace">${{ "%.2f"|format(producto.precio|float) }}</td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="/products/{{ producto._id }}/edit" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i> Editar</a>
+                                <a href="/products/{{ producto._id }}/delete" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted py-4">No se encontraron productos.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

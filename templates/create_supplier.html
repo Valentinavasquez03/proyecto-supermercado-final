@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom border-secondary">
+    <h1 class="h3 text-white fw-bold">
+        <i class="bi bi-truck text-success me-2"></i>HU07 — Registrar Proveedor
+    </h1>
+</div>
+
+<div class="card card-custom p-4 shadow-sm mx-auto" style="max-width: 600px;">
+    <h5 class="text-white fw-bold mb-3"><i class="bi bi-plus-circle me-1 text-success"></i> Nuevo Aliado Comercial</h5>
+    <form action="/suppliers" method="POST">
+        <div class="mb-3">
+            <label class="form-label">Nombre de la Empresa *</label>
+            <input type="text" class="form-control form-dark" name="nombre_proveedor" placeholder="Ej. Distribuidora Alianza" required autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Teléfono de Contacto *</label>
+            <input type="text" class="form-control form-dark" name="telefono" placeholder="Ej. +569123456" required autocomplete="off">
+        </div>
+        <div class="d-flex gap-3 pt-2">
+            <a href="/suppliers/list" class="btn btn-secondary w-50 fw-bold">Ver Lista</a>
+            <button type="submit" class="btn btn-success w-50 fw-bold">
+                <i class="bi bi-check-lg"></i> Guardar
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

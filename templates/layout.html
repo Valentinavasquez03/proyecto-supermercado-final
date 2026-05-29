@@ -1,0 +1,67 @@
+<style>
+    body { 
+        background-color: #0b0f19; /* Fondo oscuro premium tipo VS Code */
+        color: #f1f5f9; /* Texto principal blanco/gris muy claro */
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+    }
+    .sidebar { 
+        background-color: #111827; /* Barra lateral un poco más clara que el fondo */
+        min-height: 100vh; 
+        border-right: 1px solid #1f2937; 
+    }
+    .sidebar .nav-link { 
+        color: #9ca3af; /* Letras de la barra lateral legibles */
+        padding: 12px 20px; 
+        font-size: 0.9rem; 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+        border-radius: 8px; 
+        margin: 4px 12px; 
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    .sidebar .nav-link:hover { 
+        color: #ffffff; 
+        background-color: #1f2937; 
+    }
+    .sidebar .nav-link.active {
+        border-left: 4px solid #10b981;
+        background-color: #111827;
+        color: #10b981;
+    }
+    /* Tarjetas del Dashboard y contenedores */
+    .card-custom { 
+        background-color: #111827; 
+        border: 1px solid #1f2937; 
+        border-radius: 12px; 
+    }
+    .badge-hu { 
+        font-size: 0.7rem; 
+        padding: 4px 8px; 
+        border-radius: 6px; 
+        font-weight: bold; 
+    }
+    /* Tablas con máximo contraste */
+    .table-custom { 
+        --bs-table-bg: #111827; 
+        color: #f3f4f6; 
+        border-color: #1f2937; 
+    }
+    /* SOLUCIÓN CRÍTICA: Inputs y formularios legibles */
+    .form-dark { 
+        background-color: #1f2937 !important; /* Caja gris medio */
+        border: 1px solid #374151 !important; 
+        color: #ffffff !important; /* Letras que escribe el usuario en blanco puro */
+    }
+    .form-dark:focus { 
+        background-color: #1f2937 !important; 
+        border-color: #10b981 !important; /* Borde verde al hacer clic */
+        color: #ffffff !important; 
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2) !important; 
+    }
+    /* Para textos secundarios */
+    .text-muted {
+        color: #9ca3af !important; /* Gris claro para que sí se lea sobre el fondo */
+    }
+</style>

@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom border-secondary">
+    <h1 class="h3 text-white fw-bold">Registrar Transacción de Venta (HU04)</h1>
+</div>
+<div class="card card-custom p-4 shadow mx-auto" style="max-width: 500px;">
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label text-muted small">Seleccionar Artículo del Inventario</label>
+            <select name="producto_id" class="form-select form-dark" required>
+                {% for p in productos %}
+                    <option value="{{ p._id }}">{{ p.nombre }} — Disponibles: {{ p.stock }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="form-label text-muted small">Cantidad a Despachar</label>
+            <input type="number" name="cantidad" class="form-control form-dark" value="1" min="1" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100 fw-bold"><i class="bi bi-cart-plus"></i> Procesar Venta</button>
+    </form>
+</div>
+{% endblock %}

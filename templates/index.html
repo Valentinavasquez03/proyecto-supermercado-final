@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperMercado - Panel de Control</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #11141a; color: #f1f5f9; font-family: 'Segoe UI', system-ui, sans-serif; }
+        .sidebar { background-color: #1a202c; min-height: 100vh; border-right: 1px solid #2d3748; }
+        .sidebar .nav-link { 
+            color: #a0aec0; padding: 12px 20px; font-size: 0.9rem; 
+            display: flex; align-items: center; justify-content: space-between; 
+            text-decoration: none; border-radius: 8px; margin: 4px 12px; transition: all 0.2s;
+        }
+        .sidebar .nav-link:hover { color: #ffffff; background-color: #2d3748; }
+        .card-custom { background-color: #1e2530; border: 1px solid #2d3748; border-radius: 12px; }
+        .table-custom { --bs-table-bg: #1e2530; color: #f7fafc; border-color: #2d3748; }
+        .form-dark { background-color: #2d3748 !important; border: 1px solid #4a5568 !important; color: #ffffff !important; }
+        .form-dark:focus { background-color: #2d3748 !important; border-color: #48bb78 !important; color: #ffffff !important; }
+        .badge-hu { font-size: 0.65rem; padding: 4px 6px; font-weight: bold; border-radius: 5px; }
+        label { color: #cbd5e1 !important; font-weight: 500; margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar p-0 shadow">
+                <div class="pt-4 px-4 mb-4 pb-3 border-bottom border-secondary">
+                    <h5 class="text-white fw-bold mb-0"><i class="bi bi-shop text-success me-2"></i>SuperMercado</h5>
+                    <small class="text-muted" style="font-size: 0.75rem;">Panel Administrativo</small>
+                </div>
+                
+                <div class="mb-3">
+                    <span class="px-4 text-uppercase font-monospace text-muted" style="font-size: 0.65rem; letter-spacing: 1px;">Inventario</span>
+                    <ul class="nav flex-column mt-1">
+                        <li><a class="nav-link" href="/products/new"><span><i class="bi bi-plus-circle me-2"></i>Registrar</span><span class="badge badge-hu bg-success">HU02</span></a></li>
+                        <li><a class="nav-link" href="/products/search"><span><i class="bi bi-search me-2"></i>Buscar / CRUD</span><span class="badge badge-hu bg-success">HU05</span></a></li>
+                        <li><a class="nav-link" href="/products/low-stock"><span><i class="bi bi-exclamation-triangle me-2"></i>Bajo Stock</span><span class="badge badge-hu bg-warning text-dark">HU10</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="mb-3">
+                    <span class="px-4 text-uppercase font-monospace text-muted" style="font-size: 0.65rem; letter-spacing: 1px;">Caja</span>
+                    <ul class="nav flex-column mt-1">
+                        <li><a class="nav-link" href="/sales/new"><span><i class="bi bi-cart-plus me-2"></i>Nueva Venta</span><span class="badge badge-hu bg-success">HU04</span></a></li>
+                        <li><a class="nav-link" href="/sales/report"><span><i class="bi bi-graph-up me-2"></i>Reportes</span><span class="badge badge-hu bg-success">HU08</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="mb-3">
+                    <span class="px-4 text-uppercase font-monospace text-muted" style="font-size: 0.65rem; letter-spacing: 1px;">Sistema</span>
+                    <ul class="nav flex-column mt-1">
+                        <li><a class="nav-link" href="/suppliers/list"><span><i class="bi bi-truck me-2"></i>Proveedores</span><span class="badge badge-hu bg-success">HU07</span></a></li>
+                        <li><a class="nav-link" href="/logout"><span><i class="bi bi-box-arrow-left me-2"></i>Cerrar Sesión</span><span class="badge badge-hu bg-secondary">HU01</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} bg-dark text-white border-secondary alert-dismissible fade show shadow" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
